@@ -1,16 +1,14 @@
 package jokeserverproject;
 
 import java.io.*;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Worker extends Thread{
 	Socket sock; 
-	private int mode;
+	private String mode;
 	String name = "Deliana"; //Implement this
 	
 	List<String> jokes;
@@ -18,6 +16,7 @@ public class Worker extends Thread{
 	
 	Worker (Socket s) {
 		sock = s;
+		mode = "j";
 		jokes = new ArrayList<String>();
 		proverbs = new ArrayList<String>();
 		addJokes();
@@ -37,14 +36,12 @@ public class Worker extends Thread{
 			out = new PrintStream(sock.getOutputStream());
 			
 			//Note this branch might not execute when expected
-			try{//Print input. Catch exceptions.
+			try{
 				
 				String name;
-			    name = in.readLine(); //get that line from the socket
-				System.out.println("Looking up " + name);
+			    name = in.readLine(); //get user's name from the socket	
+				printRequest(out);
 				
-				//Find website's IP address and print it. See method below
-				printRemoteAddress(name, out);
 			} catch (IOException x){
 				System.out.println("Server read error");
 				x.printStackTrace();
@@ -56,23 +53,31 @@ public class Worker extends Thread{
 		
 	}
 
-	static void printRemoteAddress(String name, PrintStream out) {
-		try{
-			out.println("Looking up " + name + "...");
-			/* InetAddress class represents an IP address
-			the getByName method returns the IP address given a host name
-			more info on InetAddress and it's methods here:
-			https://docs.oracle.com/javase/7/docs/api/java/net/InetAddress.html */
-			InetAddress machine = InetAddress.getByName(name);
-			
-			// printing out this statement from the socket
-			out.println("Host name: " + machine.getHostName()); // To client
-			out.println("Host IP: " + toText(machine.getAddress())); //toText formats the IP
-		} catch (UnknownHostException ex){
-			out.println("Failed in atempt to look up " + name);
-		}
-		
+	
+	public void printRequest(PrintStream out){
+		if (mode == "m")
+			out.println("WARNING: System under maintence.");
+		else if (mode == "p")
+			out.println(chooseProverb());
+		else 
+			out.println(chooseJoke());
+
 	}
+	
+//	static void printRemoteAddress(String name, PrintStream out) {
+//		try{
+//			out.println("Looking up " + name + "...");
+//			
+//			if (mode == 'j')
+//			
+//			// printing out this statement from the socket
+//			out.println("Host name: " + machine.getHostName()); // To client
+//			out.println("Host IP: " + toText(machine.getAddress())); //toText formats the IP
+//		} catch (UnknownHostException ex){
+//			out.println("Failed in atempt to look up " + name);
+//		}
+//		
+//	}
 	
 	//This formats the IP address so it looks pretty
 	static String toText(byte ip[]) {
