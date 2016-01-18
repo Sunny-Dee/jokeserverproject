@@ -27,6 +27,11 @@ public class JokeServer {
 		int port = 4001;
 		Socket sock;
 		
+		ModeServer modeserver = new ModeServer(); //this is the separate thread for the mode portion
+		Thread t = new Thread(modeserver); 
+		t.start(); //this calls the run method on modeserver
+		
+		
 		ServerSocket servsock = new ServerSocket(port, q_len);
 		
 		System.out.println("Joke Server starting up.\nReady to"

@@ -1,6 +1,7 @@
 package jokeserverproject;
 
 import java.io.*;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Worker extends Thread{
 	Socket sock; 
+	Socket modesocket;
 	private String mode;
 	String name = "Deliana"; //Implement this
 	
@@ -27,11 +29,17 @@ public class Worker extends Thread{
 		//Get I/O streams in/out from the socket
 		PrintStream out = null; 
 		BufferedReader in = null;
+
 		
 		try{
+			//TODO get the mode from the other client 
+			//modesocket =
+			
 			//input to the socket
 			in = new BufferedReader
 					(new InputStreamReader(sock.getInputStream()));
+			
+			
 			//output from the socket
 			out = new PrintStream(sock.getOutputStream());
 			
@@ -40,7 +48,7 @@ public class Worker extends Thread{
 				
 				String name;
 			    name = in.readLine(); //get user's name from the socket	
-				printRequest(out);
+				printRequest(mode, out);
 				
 			} catch (IOException x){
 				System.out.println("Server read error");
@@ -54,44 +62,15 @@ public class Worker extends Thread{
 	}
 
 	
-	public void printRequest(PrintStream out){
+	public void printRequest(String mode, PrintStream out){
 		if (mode == "m")
-			out.println("WARNING: System under maintence.");
+			out.println("WARNING: System under maintenance.");
 		else if (mode == "p")
 			out.println(chooseProverb());
 		else 
 			out.println(chooseJoke());
 
 	}
-	
-//	static void printRemoteAddress(String name, PrintStream out) {
-//		try{
-//			out.println("Looking up " + name + "...");
-//			
-//			if (mode == 'j')
-//			
-//			// printing out this statement from the socket
-//			out.println("Host name: " + machine.getHostName()); // To client
-//			out.println("Host IP: " + toText(machine.getAddress())); //toText formats the IP
-//		} catch (UnknownHostException ex){
-//			out.println("Failed in atempt to look up " + name);
-//		}
-//		
-//	}
-	
-	//This formats the IP address so it looks pretty
-	static String toText(byte ip[]) {
-		StringBuffer result = new StringBuffer();
-		for (int i = 0; i < ip.length; ++i){
-			if (i > 0) result.append(".");
-			//append the resulting IP and masking the first two bits 
-			result.append(0xff & ip[i]);
-		}
-		
-		//Worker returns a string version of the IP address
-		return result.toString();
-	}
-	
 	
 	public String chooseJoke(){
 		int idx = 0; 
