@@ -6,7 +6,7 @@ import java.net.Socket;
 public class ModeWorker extends Thread{
 	
 	Socket sock;
-	String mode;
+//	public static String mode = "j";
 	
 	ModeWorker (Socket s) {sock = s;}
 	
@@ -24,6 +24,7 @@ public class ModeWorker extends Thread{
 			out = new PrintStream(sock.getOutputStream());
 			
 			try {
+				
 			    mode = in.readLine(); //get that line from the socket
 			    out.print(mode);
 			    if (mode == "p"){

@@ -3,6 +3,7 @@ package jokeserverproject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class WorkerTEST {
@@ -96,11 +97,20 @@ public class WorkerTEST {
 				+ "                                      -Samwise Gamgee");
 	}
 
-	public static void main(String args[]){
-		WorkerTEST test = new WorkerTEST();
-		
-		for (int i=0; i < 15; i++)
-			System.out.println(i + ". " + test.chooseProverb());
-		
-	}
+//	public static void main(String args[]){
+//		WorkerTEST test = new WorkerTEST();
+//		
+//		for (int i=0; i < 15; i++)
+//			System.out.println(i + ". " + test.chooseProverb());
+//		
+//	}
+	
+	   @SuppressWarnings("resource")
+	public static void main(String[] args) {
+	        System.out.println("Press enter.");
+	        new Scanner(System.in).nextLine();
+	        System.out.println("Thanks.");
+     
+	    }
+	   
 }

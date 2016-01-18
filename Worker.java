@@ -1,7 +1,6 @@
 package jokeserverproject;
 
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +8,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Worker extends Thread{
 	Socket sock; 
-	Socket modesocket;
-	private String mode;
 	String name = "Deliana"; //Implement this
 	
 	List<String> jokes;
@@ -18,7 +15,7 @@ public class Worker extends Thread{
 	
 	Worker (Socket s) {
 		sock = s;
-		mode = "j";
+		
 		jokes = new ArrayList<String>();
 		proverbs = new ArrayList<String>();
 		addJokes();
@@ -33,7 +30,7 @@ public class Worker extends Thread{
 		
 		try{
 			//TODO get the mode from the other client 
-			//modesocket =
+			String mode = JokeServer.mode;
 			
 			//input to the socket
 			in = new BufferedReader
