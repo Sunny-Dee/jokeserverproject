@@ -6,7 +6,7 @@ import java.net.Socket;
 public class ModeWorker extends Thread{
 	
 	Socket sock;
-//	public static String mode = "j";
+	volatile static String mode = "j";
 	
 	ModeWorker (Socket s) {sock = s;}
 	
@@ -28,13 +28,13 @@ public class ModeWorker extends Thread{
 			    mode = in.readLine(); //get that line from the socket
 			    out.print(mode);
 			    if (mode == "p"){
-			    	System.out.println("Proverb Mode");
+			    	out.println("Proverb Mode");
 			    }
 			    else if (mode == "m"){
-			    	System.out.println("Maintenance Mode");
+			    	out.println("Maintenance Mode");
 			    }
 			    else {
-			    	System.out.println("Default Joke Mode");
+			    	out.println("Default Joke Mode");
 			    }
 			    
 			    

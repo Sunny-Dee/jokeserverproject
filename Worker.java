@@ -7,15 +7,17 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Worker extends Thread{
-	Socket sock; 
-	String name = "Deliana"; //Implement this
+	String mode;
+	static String name;
 	
+	Socket sock; 	
 	List<String> jokes;
 	List<String> proverbs;
+
 	
 	Worker (Socket s) {
 		sock = s;
-		
+		mode = "j";
 		jokes = new ArrayList<String>();
 		proverbs = new ArrayList<String>();
 		addJokes();
@@ -30,7 +32,7 @@ public class Worker extends Thread{
 		
 		try{
 			//TODO get the mode from the other client 
-			String mode = JokeServer.mode;
+			mode = ModeWorker.mode;
 			
 			//input to the socket
 			in = new BufferedReader

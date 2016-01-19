@@ -3,7 +3,6 @@ package jokeserverproject;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 /**
  * 
@@ -22,10 +21,7 @@ import java.util.Scanner;
  */
 
 public class JokeServer {
-	volatile static String mode = "j";
 	
-	
-	@SuppressWarnings("resource") // may not need this when I have a quit option
 	public static void main(String args[]) throws IOException{
 		int q_len = 6; 
 		
@@ -41,12 +37,12 @@ public class JokeServer {
 		ServerSocket servsock = new ServerSocket(port, q_len);
 		
 		System.out.println("Joke Server starting up.\nReady to"
-				+ "brighten your day!\nListening at port: " + port + ".");
+				+ "brighten someone's day!\nListening at port: " + port + ".");
 		
 		try{
 			while(true){ //figure out a way to quit
-				System.out.println("Press enter to get joke or proverb");
-				new Scanner(System.in).nextLine();
+//				System.out.println("Press enter to get joke or proverb");
+//				new Scanner(System.in).nextLine();
 				sock = servsock.accept(); 
 				new Worker(sock).start();
 			}
