@@ -5,19 +5,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * 
- Create a Mode thread and send it off,
-   asynchronously, to get MODE instructions.
-
- Create a server socket listening at port X
-
- Loop while loopvar is true
-    Block while waiting for a connection to X
-    Spawn a new worker thread and pass it the connection.
-
- Exit
- * @author delianaescobari
- *
+ * Name: Deliana Escobari       Date: Tuesday January 19th, 2015
+ * Java version used: 1.8 
+ * Compile with command: javac JokeServer.java 
+ * 		or java *.java once to compile all files in the whole folder
+ * Run with command: java JokeServer
  */
 
 public class JokeServer {
@@ -43,6 +35,7 @@ public class JokeServer {
 			while(true){ //figure out a way to quit
 //				System.out.println("Press enter to get joke or proverb");
 //				new Scanner(System.in).nextLine();
+				System.out.println("Checking for some good stuff to share");
 				sock = servsock.accept(); 
 				new Worker(sock).start();
 			}

@@ -3,6 +3,12 @@ package jokeserverproject;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Name: Deliana Escobari       Date: Tuesday January 19th, 2015
+ * Java version used: 1.8 
+ * Compile with command: javac ModeWorker.java 
+ * 		or java *.java once to compile all files in the whole folder
+ */
 public class ModeWorker extends Thread{
 	
 	Socket sock;
@@ -27,15 +33,16 @@ public class ModeWorker extends Thread{
 				
 			    mode = in.readLine(); //get that line from the socket
 			    out.print(mode);
-			    if (mode == "p"){
-			    	out.println("Proverb Mode");
-			    }
-			    else if (mode == "m"){
-			    	out.println("Maintenance Mode");
-			    }
-			    else {
-			    	out.println("Default Joke Mode");
-			    }
+			    System.out.println("mode: " + mode);
+//			    if (mode == "p"){
+//			    	out.println("Proverb Mode");
+//			    }
+//			    else if (mode == "m"){
+//			    	out.println("Maintenance Mode");
+//			    }
+//			    else {
+//			    	out.println("Default Joke Mode");
+//			    }
 			    
 			    
 			} catch (IOException x){

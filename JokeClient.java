@@ -8,9 +8,11 @@ import java.net.Socket;
 import java.util.Scanner;
 
 /**
- * 
- * @author Deliana Escobari
- *
+ * Name: Deliana Escobari       Date: Tuesday January 19th, 2015
+ * Java version used: 1.8 
+ * Compile with command: javac JokeSClient.java 
+ * 		or java *.java once to compile all files in the whole folder
+ * Run with command: java JokeClient
  */
 
 public class JokeClient {

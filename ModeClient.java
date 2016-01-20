@@ -7,6 +7,13 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * Name: Deliana Escobari       Date: Tuesday January 19th, 2015
+ * Java version used: 1.8 
+ * Compile with command: javac ModeClient.java 
+ * 		or java *.java once to compile all files in the whole folder
+ * Run with command: java ModeClient
+ */
 public class ModeClient {
 	private static final int port = 4500;
 	
@@ -16,7 +23,7 @@ public class ModeClient {
 			serverName = "localhost";
 		else serverName = args[0];
 		ArrayList<String> modes = new ArrayList<String>();
-		modes.add("j"); modes.add("j"); modes.add("m");
+		modes.add("p"); modes.add("j"); modes.add("m");
 		
 		System.out.println("Deliana's JokeServer Admin Mode.");
 		System.out.println("Using server: " + serverName + ", Port: " + port);

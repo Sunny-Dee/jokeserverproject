@@ -46,8 +46,9 @@ public class WorkerTEST {
 	
 	public String chooseProverb(){
 		int idx = 0; 
-		if (proverbs.size() > 0)
+		if (proverbs.size() > 0){
 			idx = ThreadLocalRandom.current().nextInt(0, proverbs.size());
+		}
 		
 		String proverb;
 		
@@ -96,21 +97,33 @@ public class WorkerTEST {
 				+ " and it's worth fighting for. \n"
 				+ "                                      -Samwise Gamgee");
 	}
-
-//	public static void main(String args[]){
-//		WorkerTEST test = new WorkerTEST();
-//		
-//		for (int i=0; i < 15; i++)
-//			System.out.println(i + ". " + test.chooseProverb());
-//		
-//	}
 	
-	   @SuppressWarnings("resource")
-	public static void main(String[] args) {
+	@SuppressWarnings("resource")
+	
+	public static void main(String args[]){
+		WorkerTEST test = new WorkerTEST();
+		int counter = 0;
+		while(true){
+			
 	        System.out.println("Press enter.");
 	        new Scanner(System.in).nextLine();
-	        System.out.println("Thanks.");
-     
-	    }
+	        System.out.println(counter++ + ". " + test.chooseJoke());
+		}
+			
+		
+	}
+	
+	   
+//	public static void main(String[] args) {
+////	        System.out.println("Press enter.");
+////	        new Scanner(System.in).nextLine();
+////	        System.out.println("Thanks.");
+//		   String mode = "m";
+//		   if ("m" == mode)
+//			   System.out.println("It works");
+//		   else
+//			   System.out.println("It doesn't work");
+//     
+//	    }
 	   
 }
