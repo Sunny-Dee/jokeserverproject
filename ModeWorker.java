@@ -8,6 +8,29 @@ import java.net.Socket;
  * Java version used: 1.8 
  * Compile with command: javac ModeWorker.java 
  * 		or java *.java once to compile all files in the whole folder
+ * How to run this project:
+ * 		In separate shell window open:
+ * 				java JokeServer
+ * 				java JokeClient
+ * 				java 
+ * 
+ * 		All acceptable commands are displayed on the various consoles.
+ * 		This runs across machines, in which case you have to pass the IP address of
+ * 		the server to the clients. For example, if the server is running at
+ * 		140.192.1.22 then you would type:
+ * 				java JokeClient 140.192.1.22
+ * 				java JokeClientAdmin 140.192.1.22
+ * 
+ * List of files needed for running the program.
+ * 				JokeClient.java
+ * 				JokeClientAdmin.java
+ * 				JokeServer.java
+ * 				ModeServer.java
+ * 				ModeWorker.java
+ * 				Worker.java
+ * 
+ * Notes: Thread that processes a mode change. It uses a global variable mode
+ * so it can share the change with Worker class. 
  */
 public class ModeWorker extends Thread{
 	
