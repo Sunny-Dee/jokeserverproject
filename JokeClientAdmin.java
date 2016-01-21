@@ -10,14 +10,14 @@ import java.util.ArrayList;
 /**
  * Name: Deliana Escobari       Date: Tuesday January 19th, 2015
  * Java version used: 1.8 
- * Compile with command: javac ModeClient.java 
+ * Compile with command: javac JokeClientAdmin.java 
  * 		or java *.java once to compile all files in the whole folder
- * Run with command: java ModeClient
+ * Run with command: java JokeClientAdmin
  * How to run this project:
  * 		In separate shell window open:
  * 				java JokeServer
  * 				java JokeClient
- * 				java 
+ * 				java JokeClientAdmin
  * 
  * 		All acceptable commands are displayed on the various consoles.
  * 		This runs across machines, in which case you have to pass the IP address of
