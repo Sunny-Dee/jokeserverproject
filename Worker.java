@@ -2,7 +2,7 @@ package jokeserverproject;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -47,18 +47,15 @@ public class Worker extends Thread{
 
 	
 	Worker (Socket s) {
-		sock = s;
-		jokes = new ArrayList<String>();
-		proverbs = new ArrayList<String>();
-		addJokes();
-		addProverbs();
+		sock = s;	
 	}
 	
 	public void run(){
 		//Get I/O streams in/out from the socket
 		PrintStream out = null; 
 		BufferedReader in = null;
-
+		jokes = JokeServer.jokes;
+		proverbs = JokeServer.proverbs;
 		
 		try{
 			
@@ -105,14 +102,12 @@ public class Worker extends Thread{
 	
 	public String chooseJoke(){
 		int idx = 0; 
-		if (jokes.size() > 1)
-			idx = ThreadLocalRandom.current().nextInt(0, jokes.size());
-		
+					
 		String joke;
 		
 		if (!jokes.isEmpty()){
+			idx = ThreadLocalRandom.current().nextInt(0, jokes.size());
 			joke = jokes.remove(idx);
-			
 		}
 		else {
 			addJokes();
@@ -125,12 +120,11 @@ public class Worker extends Thread{
 	
 	public String chooseProverb(){
 		int idx = 0; 
-		if (proverbs.size() > 1)
-			idx = ThreadLocalRandom.current().nextInt(0, proverbs.size());
 		
 		String proverb;
 		
 		if (!proverbs.isEmpty()){
+			idx = ThreadLocalRandom.current().nextInt(0, proverbs.size());
 			proverb = proverbs.get(idx);
 			proverbs.remove(idx);
 		}

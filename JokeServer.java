@@ -3,6 +3,8 @@ package jokeserverproject;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Name: Deliana Escobari       Date: Tuesday January 19th, 2015
@@ -38,6 +40,14 @@ import java.net.Socket;
  */
 
 public class JokeServer {
+	
+	static volatile List<String> jokes;
+	static volatile List<String> proverbs;
+	
+	public JokeServer(){
+		jokes = new ArrayList<String>();
+		proverbs = new ArrayList<String>();
+	}
 	
 	public static void main(String args[]) throws IOException{
 		int q_len = 6; 
