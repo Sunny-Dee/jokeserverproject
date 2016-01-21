@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.Scanner;
 
 
 /**
@@ -20,6 +21,7 @@ public class JokeClient {
 	static String name;
 	static Socket sock;
 	
+	@SuppressWarnings("resource")
 	public static void main(String args[]){
 		String serverName;
 		if (args.length < 1)
@@ -42,7 +44,11 @@ public class JokeClient {
 					+ "knowledge and/or laughs.");
 			System.out.println("Press enter to get a joke or proverb: ");
 			
-			getJokeOrProb(name, serverName);
+			do {
+				new Scanner(System.in).nextLine();
+				getJokeOrProb(name, serverName) ;
+				System.out.println("\n");
+			} while (true); //name.indexOf("quit") < 0 ); 
 			
 		} catch (IOException x) {x.printStackTrace();}
 			
@@ -53,43 +59,40 @@ public class JokeClient {
 	
 
 	private static void getJokeOrProb(String name, String serverName) {
-//		Socket sock; ///////
+		Socket sock;
 		BufferedReader fromServer; 
-		PrintStream toServer; 
+		PrintStream toServer;
 		String textFromServer;
 		
 		try {
 			/* Open our connection to server port. Choose our the port number we established in InetServer */
-			sock = new Socket(serverName, port); 
+			sock = new Socket(serverName, port);
 			
 			//Create filter I/O streams for the socket
 			fromServer = 
-					new BufferedReader(new InputStreamReader(sock.getInputStream()));/////
-			toServer = new PrintStream(sock.getOutputStream()); /////
+					new BufferedReader(new InputStreamReader(sock.getInputStream()));
+			toServer = new PrintStream(sock.getOutputStream());
 			
 			//Send machine name or IP address to server:
-			toServer.println(name); 
-
+			toServer.println(name);
+			toServer.flush();
 			
-
-				//Read two or three lines of response from server,
-				//and block while synchronously waiting
+			//Read two or three lines of response from server,
+			//and block while synchronously waiting
 			for (int i = 1; i <= 3; i++){
 				textFromServer = fromServer.readLine();
 				if (textFromServer != null)
 					System.out.println(textFromServer);
-				}
-	
+			}
 			
-//			toServer.flush(); 
-
-			
-//			sock.close();
+			sock.close();
 			
 		}  catch (IOException x) {
 			System.out.println("Socket error.");
 			x.printStackTrace();
 		}
+		
+
 		
 	}
 
