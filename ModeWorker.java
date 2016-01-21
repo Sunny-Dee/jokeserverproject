@@ -33,6 +33,7 @@ import java.net.Socket;
  * Notes: Thread that processes a mode change. It uses a global variable mode
  * so it can share the change with Worker class. 
  */
+
 public class ModeWorker extends Thread{
 	
 	Socket sock;
@@ -56,17 +57,20 @@ public class ModeWorker extends Thread{
 			try {
 				
 			    mode = in.readLine(); //get that line from the socket
-			    out.print(mode);
-			    System.out.println("mode: " + mode);
-//			    if (mode == "p"){
-//			    	out.println("Proverb Mode");
-//			    }
-//			    else if (mode == "m"){
-//			    	out.println("Maintenance Mode");
-//			    }
-//			    else {
-//			    	out.println("Default Joke Mode");
-//			    }
+//			    out.print(mode);
+//			    System.out.println("mode: " + mode);
+			    if (mode.equals("p")){
+			    	out.println("Proverb Mode");
+			    	System.out.println("Switched to proverb mode.");
+			    }
+			    else if (mode.equals("m")){
+			    	out.println("Maintenance Mode");
+			    	System.out.println("Switched to maintenance mode.");
+			    }
+			    else {
+			    	out.println("Default Joke Mode");
+			    	System.out.println("Switched to joke mode.");
+			    }
 			    
 			    
 			} catch (IOException x){

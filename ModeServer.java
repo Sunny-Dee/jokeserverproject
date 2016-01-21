@@ -41,8 +41,6 @@ import java.net.Socket;
  */
  
 public class ModeServer implements Runnable{
-	
-	volatile static String mode = "j";
 
 	public void run() {
 		int q_len = 6;
