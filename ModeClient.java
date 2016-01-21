@@ -13,35 +13,8 @@ import java.util.ArrayList;
  * Compile with command: javac ModeClient.java 
  * 		or java *.java once to compile all files in the whole folder
  * Run with command: java ModeClient
- * How to run this project:
- * 		In separate shell window open:
- * 				java JokeServer
- * 				java JokeClient
- * 				java 
- * 
- * 		All acceptable commands are displayed on the various consoles.
- * 		This runs across machines, in which case you have to pass the IP address of
- * 		the server to the clients. For example, if the server is running at
- * 		140.192.1.22 then you would type:
- * 				java JokeClient 140.192.1.22
- * 				java JokeClientAdmin 140.192.1.22
- * 
- * List of files needed for running the program.
- * 				JokeClient.java
- * 				JokeClientAdmin.java
- * 				JokeServer.java
- * 				ModeServer.java
- * 				ModeWorker.java
- * 				Worker.java
- * 
- * Notes: This is the file that connects to the admin server. Then asks the 
- * user if they like to change the mode. 
- * If they don't input anything the mode is joke by default. 
- * If they press 'j' for joke, 'p' for proverb, or 'm' for maintenance the 
- * mode changes accordingly.  
  */
-
-public class JokeClientAdmin {
+public class ModeClient {
 	private static final int port = 4500;
 	
 	public static void main(String args[]){

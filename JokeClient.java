@@ -13,31 +13,6 @@ import java.net.Socket;
  * Compile with command: javac JokeSClient.java 
  * 		or java *.java once to compile all files in the whole folder
  * Run with command: java JokeClient
- * 
- * How to run this project:
- * 		In separate shell window open:
- * 				java JokeServer
- * 				java JokeClient
- * 				java 
- * 
- * 		All acceptable commands are displayed on the various consoles.
- * 		This runs across machines, in which case you have to pass the IP address of
- * 		the server to the clients. For example, if the server is running at
- * 		140.192.1.22 then you would type:
- * 				java JokeClient 140.192.1.22
- * 				java JokeClientAdmin 140.192.1.22
- * 
- * List of files needed for running the program.
- * 				JokeClient.java
- * 				JokeClientAdmin.java
- * 				JokeServer.java
- * 				ModeServer.java
- * 				ModeWorker.java
- * 				Worker.java
- * 
- * Notes: This is the file the user uses to input her name and get a joke or proverb 
- * depending on the mode set by JokeClientAdmin. The default mode if nothing is setup 
- * is joke mode. 
  */
 
 public class JokeClient {
@@ -46,16 +21,15 @@ public class JokeClient {
 	static Socket sock;
 	
 	public static void main(String args[]){
-		
-		/*If no IP address has been given, then the default address is the local machine*/
 		String serverName;
 		if (args.length < 1)
 			serverName = "localhost";
-		else serverName = args[0]; 
+		else serverName = args[0];
 		
 		System.out.println("Is your name WIFI? Because I'm feeling "
 				+ "a connection.");
 		System.out.println("Using server: " + serverName + ", listening at port: " + port);
+		//Start an in variable to ask the user to input a host 
 		
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in)); //get's name from user
 		try {
