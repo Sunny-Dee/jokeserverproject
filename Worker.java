@@ -111,6 +111,7 @@ public class Worker extends Thread{
 		}
 		else {
 			addJokes();
+			idx = ThreadLocalRandom.current().nextInt(0, jokes.size());
 			joke = jokes.get(idx);
 			jokes.remove(idx);
 		}
@@ -130,6 +131,7 @@ public class Worker extends Thread{
 		}
 		else {
 			addProverbs();
+			idx = ThreadLocalRandom.current().nextInt(0, proverbs.size());
 			proverb = proverbs.get(idx);
 			proverbs.remove(idx);
 		}

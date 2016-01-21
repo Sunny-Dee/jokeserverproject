@@ -44,10 +44,6 @@ public class JokeServer {
 	static volatile List<String> jokes;
 	static volatile List<String> proverbs;
 	
-	public JokeServer(){
-		jokes = new ArrayList<String>();
-		proverbs = new ArrayList<String>();
-	}
 	
 	public static void main(String args[]) throws IOException{
 		int q_len = 6; 
@@ -55,6 +51,8 @@ public class JokeServer {
 		int port = 4001;
 		Socket sock;
 		
+		jokes = new ArrayList<String>();
+		proverbs = new ArrayList<String>();
 		
 		ModeServer modeserver = new ModeServer(); //this is the separate thread for the mode portion
 		Thread t = new Thread(modeserver); 
