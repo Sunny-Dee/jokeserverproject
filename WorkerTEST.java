@@ -106,7 +106,7 @@ public class WorkerTEST {
 		while(true){
 			
 	        System.out.println("Press enter.");
-	        new Scanner(System.in).nextLine();
+	        System.out.println(new Scanner(System.in).nextLine());
 	        System.out.println(counter++ + ". " + test.chooseJoke());
 		}
 			
@@ -125,5 +125,7 @@ public class WorkerTEST {
 //			   System.out.println("It doesn't work");
 //     
 //	    }
+	
+
 	   
 }

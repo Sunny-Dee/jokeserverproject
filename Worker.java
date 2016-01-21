@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -54,6 +55,7 @@ public class Worker extends Thread{
 		addProverbs();
 	}
 	
+	@SuppressWarnings("resource")
 	public void run(){
 		//Get I/O streams in/out from the socket
 		PrintStream out = null; 
@@ -76,8 +78,16 @@ public class Worker extends Thread{
 				
 			    name = in.readLine(); //get user's name from the socket	
 			    mode = ModeWorker.mode;
+			    
 			    printRequest(mode, out);
-				
+			    
+			    in = new BufferedReader
+						(new InputStreamReader(sock.getInputStream()));
+			    
+			    while(true){
+					new Scanner(in).nextLine();
+			    	printRequest(mode, out);
+			    }
 			} catch (IOException x){
 				System.out.println("Server read error");
 				x.printStackTrace();
