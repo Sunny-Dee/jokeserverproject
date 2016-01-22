@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.UUID;
 
 
 /**
@@ -44,6 +45,7 @@ import java.util.Scanner;
 
 public class JokeClient {
 	private static final int port = 4001;
+	static final String id = UUID.randomUUID().toString();
 	static String name;
 	static Socket sock;
 	
@@ -66,13 +68,15 @@ public class JokeClient {
 		
 		BufferedReader in = 
 				new BufferedReader(new InputStreamReader(System.in)); 
+		
+		
 		try {
 			System.out.print("\nPlease enter your name " +
 					"or (quit) to end: ");
 			
 			System.out.flush(); //flush the stream
 			name = in.readLine(); //get's name from user
-			
+						
 			/* Only if user enters a word other than quit
 			 * will the request be fulfilled 
 			 */
@@ -121,6 +125,9 @@ public class JokeClient {
 			
 			//Send name to server:
 			toServer.println(name);
+			toServer.flush();
+			
+			toServer.println(id);
 			toServer.flush();
 			
 			//Read two or three lines of response from server,

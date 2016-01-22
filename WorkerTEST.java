@@ -4,6 +4,7 @@ package jokeserverproject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class WorkerTEST {
@@ -107,7 +108,13 @@ public class WorkerTEST {
 			
 	        System.out.println("Press enter.");
 	        System.out.println(new Scanner(System.in).nextLine());
-	        System.out.println(counter++ + ". " + test.chooseJoke());
+	        UUID idOne = UUID.randomUUID();
+	        UUID idTwo = UUID.randomUUID();
+	        UUID id3 = UUID.randomUUID();
+	        System.out.println(idOne.toString());
+	        System.out.println(idTwo);
+	        System.out.println(id3);
+	        
 		}
 			
 		

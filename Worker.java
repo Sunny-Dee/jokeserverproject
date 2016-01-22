@@ -2,6 +2,7 @@ package jokeserverproject;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -43,6 +44,8 @@ public class Worker extends Thread{
 	Socket sock; 	
 	private static List<String> jokes;
 	private static List<String> proverbs;
+	static volatile Hashtable<String, ClientState> clients;
+	String id;
 
 	
 	Worker (Socket s) {
@@ -56,8 +59,11 @@ public class Worker extends Thread{
 		
 		//Point the local lists to the main lists 
 		//stored on the server side. 
-		jokes = JokeServer.jokes;
-		proverbs = JokeServer.proverbs;
+		clients = JokeServer.clients;
+//		jokes = JokeServer.jokes;
+//		proverbs = JokeServer.proverbs;
+		
+		
 		
 		try{
 			
@@ -73,6 +79,17 @@ public class Worker extends Thread{
 				
 			    name = in.readLine(); //get user's name from the socket	
 			    mode = ModeWorker.mode; //Get the mode from the ModeWorker
+			    id = in.readLine();
+			    System.out.println("Looking up client ID's state: " + id);
+
+			    if (!clients.containsKey(id)){
+			    	ClientState newclient = new ClientState();
+			    	clients.put(id, newclient);
+			    }
+			    
+			    jokes = clients.get(id).getJokeList();
+			    proverbs = clients.get(id).getProverbList();
+
 			    
 			    //get joke or proverb based on the mode
 			    printRequest(mode, out);
@@ -89,9 +106,9 @@ public class Worker extends Thread{
 	}
 
 	/* ***********Helper functions********** */
-	public synchronized void printRequest(String mode, PrintStream out){
+	public void printRequest(String mode, PrintStream out){
 		if (mode.equals("m"))
-			out.println("WARNING: System under maintenance.");
+			out.println("WARNING: Server is temporarily unavailable. Check-back shortly.");
 		else if (mode.equals("p"))
 			out.println(chooseProverb());
 		else 
@@ -119,6 +136,7 @@ public class Worker extends Thread{
 			jokes.remove(idx);
 		}
 		
+		clients.get(id).updateJokeList(jokes);
 		return "Joke " + joke;
 	}
 	
@@ -139,6 +157,7 @@ public class Worker extends Thread{
 			proverbs.remove(idx);
 		}
 		
+		clients.get(id).updateProverbList(proverbs);
 		return "Proverb " + proverb;
 	}
 	
