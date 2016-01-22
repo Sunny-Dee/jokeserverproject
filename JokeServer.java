@@ -41,8 +41,9 @@ import java.util.*;
 
 public class JokeServer {
 	
-//	static volatile List<String> jokes;
-//	static volatile List<String> proverbs;
+	/*This program keeps track of data on the server side through
+	 * this hash table
+	 */
 	static volatile Hashtable<String, ClientState> clients = 
 			new Hashtable<String, ClientState>();
 	
@@ -51,15 +52,10 @@ public class JokeServer {
 		
 		int port = 4001;
 		Socket sock;
-		
-		//This program keeps track of data on the server side. 
-		
-//		jokes = new ArrayList<String>();
-//		proverbs = new ArrayList<String>();
-		
+	
 		ModeServer modeserver = new ModeServer(); //this is the separate thread for the mode portion
 		Thread t = new Thread(modeserver); 
-		t.start(); //this calls the run method on modeserver
+		t.start(); //this calls the run method on ModeServer
 		
 		//Establish the connection
 		ServerSocket servsock = new ServerSocket(port, q_len);
