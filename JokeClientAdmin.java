@@ -46,27 +46,41 @@ public class JokeClientAdmin {
 	
 	public static void main(String args[]){
 		String serverName;
+		/* If server does not have an IP address
+		 * default to local host
+		 */
 		if (args.length < 1)
 			serverName = "localhost";
 		else serverName = args[0];
+		
+		//Start a list of acceptable input values
 		ArrayList<String> modes = new ArrayList<String>();
 		modes.add("p"); modes.add("j"); modes.add("m");
 		
-		System.out.println("Deliana's JokeServer Admin Mode.");
+		System.out.println("***********************************");
+		System.out.println("* Deliana's JokeServer Mode Admin.*");
+		System.out.println("***********************************");
 		System.out.println("Using server: " + serverName + ", Port: " + port);
 		
 		//Input stream to ask the user for a mode
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		try {
 			String mode;
+			
+			/* Keep looping to asynchronously change the mode
+			 * on JokeServer whenever the user wants. 
+			 */
 			do {
 				System.out.print("Enter a 'j' for joke mode, 'p' for " +
 					"proverb, or 'm' for maintenance: ");
 				System.out.flush();
 				mode = in.readLine();
+				
+				//Change mode only if answer is acceptable
 				if (modes.contains(mode))
+					//fulfill request:
 					changeMode(mode, serverName);
-			} while (true); // YOU CAN CHANGE THIS LATER TO ALLOW FOR QUIT!!!
+			} while (true); 
 		} catch (IOException x) {x.printStackTrace();}
 		
 	}
@@ -78,12 +92,18 @@ public class JokeClientAdmin {
 		String textFromServer;
 		
 		try {
+			
+			/* Open our connection to server port. 
+			 * Choose the same port number we use
+			 * in ModeServer */
 			sock = new Socket(serverName, port);
 			
+			//Create filter I/O streams for the socket
 			fromServer = 
 					new BufferedReader(new InputStreamReader(sock.getInputStream()));
 			toServer = new PrintStream(sock.getOutputStream());
 			
+			//Send mode to mode server
 			toServer.println(mode);
 			toServer.flush();
 			
@@ -95,6 +115,7 @@ public class JokeClientAdmin {
 					System.out.println(textFromServer);
 			}
 			
+			//close socket
 			sock.close();
 			
 		}  catch (IOException x) {

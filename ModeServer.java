@@ -51,13 +51,14 @@ public class ModeServer implements Runnable{
 		try{
 			@SuppressWarnings("resource")
 			ServerSocket servsock = new ServerSocket(port, q_len);
-			while(servsock.isBound()){ // consider changing this to just TRUE. 
+			/* If there is a connection, spawn a mode worker thread
+			 * to take care of the mode administration
+			*/
+			while(servsock.isBound()){  
 				sock = servsock.accept();
 				new ModeWorker(sock).start();
 			}
-		} catch (IOException ioe) {System.out.println(ioe);}
+		} catch (IOException ioe) {
+			System.out.println(ioe);}
 	}
-	
-	
-
 }

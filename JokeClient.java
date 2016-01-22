@@ -47,34 +47,53 @@ public class JokeClient {
 	static String name;
 	static Socket sock;
 	
-	@SuppressWarnings("resource")
 	public static void main(String args[]){
 		String serverName;
+		/* If server does not have an IP address
+		 * default to local host
+		 */
 		if (args.length < 1)
 			serverName = "localhost";
 		else serverName = args[0];
 		
+		System.out.println("************************");
+		System.out.println("* Deliana's JokeServer *");
+		System.out.println("************************");
 		System.out.println("Is your name WIFI? Because I'm feeling "
 				+ "a connection.");
-		System.out.println("Using server: " + serverName + ", listening at port: " + port);
-		//Start an in variable to ask the user to input a host 
+		System.out.println("Using server: " + serverName + "\nListening at port: " + port);
 		
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in)); //get's name from user
+		
+		BufferedReader in = 
+				new BufferedReader(new InputStreamReader(System.in)); 
 		try {
-			
-			System.out.print("Please enter your name " +
+			System.out.print("\nPlease enter your name " +
 					"or (quit) to end: ");
-			System.out.flush();
-			name = in.readLine();
-			System.out.print("Hi " + name + " let me share with you some "
-					+ "knowledge and/or laughs.");
-			System.out.println("Press enter to get a joke or proverb: ");
 			
-			do {
-				new Scanner(System.in).nextLine();
-				getJokeOrProb(name, serverName) ;
-				System.out.println("\n");
-			} while (true); //name.indexOf("quit") < 0 ); 
+			System.out.flush(); //flush the stream
+			name = in.readLine(); //get's name from user
+			
+			/* Only if user enters a word other than quit
+			 * will the request be fulfilled 
+			 */
+			if (name.indexOf("quit") < 0 ){
+				System.out.print("Hi " + name + " let me share with you some "
+						+ "of my best material.");
+				System.out.println("Press enter to get a joke or proverb: ");
+				
+				/* Loop continues to get joke, proverb or 
+				 * maintenance warning as long as the user 
+				 * presses enter 
+				 */
+				do {
+					//wait for user to press enter
+					new Scanner(System.in).nextLine();
+					//take to helper functions to fulfill request
+					getJokeOrProb(name, serverName) ;
+					System.out.println("\n");
+				} while (true); 
+			}
+			
 			
 		} catch (IOException x) {x.printStackTrace();}
 			
@@ -91,7 +110,8 @@ public class JokeClient {
 		String textFromServer;
 		
 		try {
-			/* Open our connection to server port. Choose our the port number we established in InetServer */
+			/* Open our connection to server port. 
+			 * Choose same port number in JokeServer */
 			sock = new Socket(serverName, port);
 			
 			//Create filter I/O streams for the socket
@@ -99,7 +119,7 @@ public class JokeClient {
 					new BufferedReader(new InputStreamReader(sock.getInputStream()));
 			toServer = new PrintStream(sock.getOutputStream());
 			
-			//Send machine name or IP address to server:
+			//Send name to server:
 			toServer.println(name);
 			toServer.flush();
 			
@@ -111,6 +131,7 @@ public class JokeClient {
 					System.out.println(textFromServer);
 			}
 			
+			//close socket
 			sock.close();
 			
 		}  catch (IOException x) {

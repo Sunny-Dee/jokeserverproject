@@ -51,6 +51,7 @@ public class JokeServer {
 		int port = 4001;
 		Socket sock;
 		
+		//This program keeps track of data on the server side. 
 		jokes = new ArrayList<String>();
 		proverbs = new ArrayList<String>();
 		
@@ -58,21 +59,23 @@ public class JokeServer {
 		Thread t = new Thread(modeserver); 
 		t.start(); //this calls the run method on modeserver
 		
-		
+		//Establish the connection
 		ServerSocket servsock = new ServerSocket(port, q_len);
 		
 		System.out.println("Joke Server starting up.\nReady to"
 				+ "brighten someone's day!\nListening at port: " + port + ".");
 		
+		/*This block spawns a new worker thread to process the
+		 * joke/proverb request 
+		 */
 		try{
-			while(true){ //figure out a way to quit
-//				System.out.println("Press enter to get joke or proverb");
-//				new Scanner(System.in).nextLine();
+			while(true){ 
 				System.out.println("Checking for some good stuff to share");
 				sock = servsock.accept(); 
 				new Worker(sock).start();
 			}
-			
+		//finally always executes in a try block, I thought it was a good
+		//way to make sure the server socket closes. 
 		} finally {servsock.close();} 
 		
 	}

@@ -30,8 +30,9 @@ import java.net.Socket;
  * 				ModeWorker.java
  * 				Worker.java
  * 
- * Notes: Thread that processes a mode change. It uses a global variable mode
- * so it can share the change with Worker class. 
+ * Notes: Thread that processes a mode change. It is important to know that if the
+ * user enters any character that is not j, p, or m, the system will go into the
+ * default joke more. 
  */
 
 public class ModeWorker extends Thread{
@@ -55,10 +56,14 @@ public class ModeWorker extends Thread{
 			out = new PrintStream(sock.getOutputStream());
 			
 			try {
-				
-			    mode = in.readLine(); //get that line from the socket
-//			    out.print(mode);
-//			    System.out.println("mode: " + mode);
+				/* Get mode from user. This field is used 
+				 * by the Worker thread to process requests
+				 * so updating it changes the behavior of the program*/
+			    mode = in.readLine(); 
+			    
+			    /* The following block prints out the 
+			     * new mode to the server screen and to the 
+			     * mode admin client */
 			    if (mode.equals("p")){
 			    	out.println("Proverb Mode");
 			    	System.out.println("Switched to proverb mode.");
@@ -78,7 +83,7 @@ public class ModeWorker extends Thread{
 				x.printStackTrace();
 			}
 	
-			sock.close(); //close this connection, but not the server
+			sock.close(); //end thread, server keeps on going
 		} catch (IOException ioe) {
 			System.out.println(ioe);
 		}

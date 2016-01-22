@@ -2,7 +2,6 @@ package jokeserverproject;
 
 import java.io.*;
 import java.net.Socket;
-//import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -51,9 +50,12 @@ public class Worker extends Thread{
 	}
 	
 	public void run(){
-		//Get I/O streams in/out from the socket
+
 		PrintStream out = null; 
 		BufferedReader in = null;
+		
+		//Point the local lists to the main lists 
+		//stored on the server side. 
 		jokes = JokeServer.jokes;
 		proverbs = JokeServer.proverbs;
 		
@@ -67,20 +69,17 @@ public class Worker extends Thread{
 			//output from the socket
 			out = new PrintStream(sock.getOutputStream());
 			
-			//Note this branch might not execute when expected
 			try{
 				
 			    name = in.readLine(); //get user's name from the socket	
-			    mode = ModeWorker.mode;
+			    mode = ModeWorker.mode; //Get the mode from the ModeWorker
 			    
+			    //get joke or proverb based on the mode
 			    printRequest(mode, out);
-			    
-			    in = new BufferedReader
-						(new InputStreamReader(sock.getInputStream()));
-			    
-			} catch (IOException x){
+
+			} catch (IOException x){  //catch exceptions. 
 				System.out.println("Server read error");
-				x.printStackTrace();
+				x.printStackTrace(); 
 			}
 			sock.close(); //close this connection, but not the server
 		} catch (IOException ioe) {
@@ -89,7 +88,7 @@ public class Worker extends Thread{
 		
 	}
 
-	
+	/* ***********Helper functions********** */
 	public synchronized void printRequest(String mode, PrintStream out){
 		if (mode.equals("m"))
 			out.println("WARNING: System under maintenance.");
@@ -100,9 +99,13 @@ public class Worker extends Thread{
 
 	}
 	
+	/* The following 4 functions help
+	 * select a random item in the list and return it. 
+	 * If the list is empty, they re add all items and
+	 * choose a random item then. 
+	 */
 	public String chooseJoke(){
-		int idx = 0; 
-					
+		int idx = 0; 				
 		String joke;
 		
 		if (!jokes.isEmpty()){
@@ -116,7 +119,7 @@ public class Worker extends Thread{
 			jokes.remove(idx);
 		}
 		
-		return joke;
+		return "Joke " + joke;
 	}
 	
 	public String chooseProverb(){
@@ -136,16 +139,16 @@ public class Worker extends Thread{
 			proverbs.remove(idx);
 		}
 		
-		return proverb;
+		return "Proverb " + proverb;
 	}
 	
-	/*Helper functions*/
 	private void addJokes(){
 		jokes.add("A. I changed my password to \"incorrect.\" \nSo whenever "
 				+ "I forget what it is, the computer will say \n\"Your password is incorrect.\"");
 		jokes.add("B. In the 21st century deleting history "
 				+ "has become more important than making it.");
-		jokes.add("C. I find it ironic that the colors red, white, and blue stand for freedom until "
+		jokes.add("C. " + name + ", you know what's ironic?\n"
+				+ "Red, white, and blue stand for freedom until\n"
 				+ "they are flashing behind you.");
 		jokes.add("D. A clean house is the sign of a broken computer.");
 		jokes.add("E. " + name + ", what did the spider do on the computer?\nMade a website!.");
@@ -162,7 +165,7 @@ public class Worker extends Thread{
 		
 		proverbs.add("C. \"Who's more foolish? The fool, \n"
 				+ "or the fool that follow him.\" \n"
-				+ "                                  -Obi Wan Kenobi");
+				+ "               -Obi Wan Kenobi");
 		
 		proverbs.add("D. All we have to decide is what to do with the time that is "
 				+ "given to us. \n"
