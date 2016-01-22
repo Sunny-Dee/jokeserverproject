@@ -32,6 +32,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * 				ModeServer.java
  * 				ModeWorker.java
  * 				Worker.java
+ * 				ClientState.java
  * 
  * Notes: Fulfills a client request, job, prover, or warning message, based on
  * the default mode or the mode specified by the user in JokeClientAdmin.
@@ -60,10 +61,6 @@ public class Worker extends Thread{
 		//Point the local lists to the main lists 
 		//stored on the server side. 
 		clients = JokeServer.clients;
-//		jokes = JokeServer.jokes;
-//		proverbs = JokeServer.proverbs;
-		
-		
 		
 		try{
 			
@@ -79,19 +76,25 @@ public class Worker extends Thread{
 				
 			    name = in.readLine(); //get user's name from the socket	
 			    mode = ModeWorker.mode; //Get the mode from the ModeWorker
-			    id = in.readLine();
-			    System.out.println("Looking up client ID's state: " + id);
+			    id = in.readLine(); //Get the id from the socket
+			    System.out.println("Fulfilling request for client: " + id);
 
+			    //If this is a new client, add it to the client table
 			    if (!clients.containsKey(id)){
 			    	ClientState newclient = new ClientState();
 			    	clients.put(id, newclient);
 			    }
 			    
+			    /* Set our local tables to be the ones that belong 
+			     * to this particular client
+			     */
 			    jokes = clients.get(id).getJokeList();
 			    proverbs = clients.get(id).getProverbList();
 
 			    
-			    //get joke or proverb based on the mode
+			    /* get joke or proverb based on the mode
+			     * and update the client's file
+			     */
 			    printRequest(mode, out);
 
 			} catch (IOException x){  //catch exceptions. 
@@ -113,13 +116,14 @@ public class Worker extends Thread{
 			out.println(chooseProverb());
 		else 
 			out.println(chooseJoke());
-
 	}
 	
 	/* The following 4 functions help
 	 * select a random item in the list and return it. 
-	 * If the list is empty, they re add all items and
-	 * choose a random item then. 
+	 * If the list is empty, they re add all items,
+	 * then choose a random item. 
+	 * Finally, update the client's tables on the 
+	 * server's hash table.
 	 */
 	public String chooseJoke(){
 		int idx = 0; 				
@@ -170,7 +174,7 @@ public class Worker extends Thread{
 				+ "Red, white, and blue stand for freedom until\n"
 				+ "they are flashing behind you.");
 		jokes.add("D. A clean house is the sign of a broken computer.");
-		jokes.add("E. " + name + ", what did the spider do on the computer?\nMade a website!.");
+		jokes.add("E. " + name + ", what did the spider do on the computer?\nMade a web-site!");
 		
 	}
 	
@@ -183,15 +187,15 @@ public class Worker extends Thread{
 				+ "                  -Master Yoda");
 		
 		proverbs.add("C. \"Who's more foolish? The fool, \n"
-				+ "or the fool that follow him.\" \n"
+				+ "or the fool that follow him?\" \n"
 				+ "               -Obi Wan Kenobi");
 		
-		proverbs.add("D. All we have to decide is what to do with the time that is "
-				+ "given to us. \n"
-				+ "                                        -Gandalf The Grey");
+		proverbs.add("D. All we have to decide is what to do\n"
+				+ "with the time that is given to us.\n"
+				+ "                        -Gandalf The Grey");
 		
 		proverbs.add("E. There is some good in this world, " + name
-				+ " and it's worth fighting for. \n"
+				+ "\n and it's worth fighting for. \n"
 				+ "                                      -Samwise Gamgee");
 	}
 }

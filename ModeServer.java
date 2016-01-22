@@ -34,6 +34,7 @@ import java.net.Socket;
  * 				ModeServer.java
  * 				ModeWorker.java
  * 				Worker.java
+ * 				ClientState.java
  * 
  * Notes: This class, similarly to JokeServer, waits for a connection from
  * JokeClientAdmin and once it connects this spawns a ModeWorker to take

@@ -33,6 +33,7 @@ import java.util.ArrayList;
  * 				ModeServer.java
  * 				ModeWorker.java
  * 				Worker.java
+ * 				ClientState.java
  * 
  * Notes: This is the file that connects to the admin server. Then asks the 
  * user if they like to change the mode. 

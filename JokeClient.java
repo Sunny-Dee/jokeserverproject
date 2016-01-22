@@ -37,10 +37,11 @@ import java.util.UUID;
  * 				ModeServer.java
  * 				ModeWorker.java
  * 				Worker.java
+ * 				ClientState.java
  * 
  * Notes: This is the file the user uses to input her name and get a joke or proverb 
  * depending on the mode set by JokeClientAdmin. The default mode if nothing is setup 
- * is joke mode. 
+ * is joke mode. If connection cannot be established or slow, ctrl+c and try again.
  */
 
 public class JokeClient {
@@ -62,7 +63,7 @@ public class JokeClient {
 		System.out.println("* Deliana's JokeServer *");
 		System.out.println("************************");
 		System.out.println("Is your name WIFI? Because I'm feeling "
-				+ "a connection.");
+				+ "a connection.\n");
 		System.out.println("Using server: " + serverName + "\nListening at port: " + port);
 		
 		
@@ -97,13 +98,7 @@ public class JokeClient {
 					System.out.println("\n");
 				} while (true); 
 			}
-			
-			
-		} catch (IOException x) {x.printStackTrace();}
-			
-		
-
-			
+		} catch (IOException x) {x.printStackTrace();}		
 	}
 	
 
@@ -127,6 +122,7 @@ public class JokeClient {
 			toServer.println(name);
 			toServer.flush();
 			
+			//Send id to server
 			toServer.println(id);
 			toServer.flush();
 			

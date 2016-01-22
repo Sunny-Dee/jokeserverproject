@@ -29,6 +29,7 @@ import java.net.Socket;
  * 				ModeServer.java
  * 				ModeWorker.java
  * 				Worker.java
+ * 				ClientState.java
  * 
  * Notes: Thread that processes a mode change. It is important to know that if the
  * user enters any character that is not j, p, or m, the system will go into the

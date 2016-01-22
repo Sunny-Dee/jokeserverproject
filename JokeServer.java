@@ -32,6 +32,7 @@ import java.util.*;
  * 				ModeServer.java
  * 				ModeWorker.java
  * 				Worker.java
+ * 				ClientState.java
  * 
  * Notes: This is the connection coming from JokeClient. The server waits for the
  * connection and once it happens if spawns a mode server administrator and a Worker thread
