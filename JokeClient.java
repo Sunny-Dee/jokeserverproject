@@ -82,7 +82,7 @@ public class JokeClient {
 			 * will the request be fulfilled 
 			 */
 			if (name.indexOf("quit") < 0 ){
-				System.out.print("Hi " + name + " let me share with you some "
+				System.out.println("Hi " + name + " let me share with you some "
 						+ "of my best material.");
 				System.out.println("Press enter to get a joke or proverb: ");
 				

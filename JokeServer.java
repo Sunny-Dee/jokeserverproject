@@ -60,7 +60,7 @@ public class JokeServer {
 		//Establish the connection
 		ServerSocket servsock = new ServerSocket(port, q_len);
 		
-		System.out.println("Joke Server starting up.\nReady to"
+		System.out.println("Joke Server starting up.\nReady to "
 				+ "brighten someone's day!\nListening at port: " + port + ".");
 		
 		/*This block spawns a new worker thread to process the

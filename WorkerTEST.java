@@ -14,6 +14,7 @@ public class WorkerTEST {
 	
 	List<String> jokes;
 	List<String> proverbs;
+	public static final UUID idOne = UUID.randomUUID();
 	
 	WorkerTEST () {
 
@@ -108,7 +109,7 @@ public class WorkerTEST {
 			
 	        System.out.println("Press enter.");
 	        System.out.println(new Scanner(System.in).nextLine());
-	        UUID idOne = UUID.randomUUID();
+
 	        UUID idTwo = UUID.randomUUID();
 	        UUID id3 = UUID.randomUUID();
 	        System.out.println(idOne.toString());
