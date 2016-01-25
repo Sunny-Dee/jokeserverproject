@@ -77,7 +77,8 @@ public class Worker extends Thread{
 			    name = in.readLine(); //get user's name from the socket	
 			    mode = ModeWorker.mode; //Get the mode from the ModeWorker
 			    id = in.readLine(); //Get the id from the socket
-			    System.out.println("Fulfilling request for client: " + id);
+			    System.out.println("Fulfilling request for " + name + 
+			    		" id: " + id);
 
 			    //If this is a new client, add it to the client table
 			    if (!clients.containsKey(id)){
@@ -141,7 +142,7 @@ public class Worker extends Thread{
 		}
 		
 		clients.get(id).updateJokeList(jokes);
-		return "Joke " + joke;
+		return "Joke for " + name + "\n" + joke;
 	}
 	
 	public String chooseProverb(){
@@ -162,13 +163,13 @@ public class Worker extends Thread{
 		}
 		
 		clients.get(id).updateProverbList(proverbs);
-		return "Proverb " + proverb;
+		return "Proverb for " + name + "\n" + proverb;
 	}
 	
 	private void addJokes(){
 		jokes.add("A. I changed my password to \"incorrect.\" \nSo whenever "
 				+ "I forget what it is, the computer will say \n\"Your password is incorrect.\"");
-		jokes.add("B. In the 21st century deleting history "
+		jokes.add("B. In the 21st century deleting history \n"
 				+ "has become more important than making it.");
 		jokes.add("C. " + name + ", you know what's ironic?\n"
 				+ "Red, white, and blue stand for freedom until\n"

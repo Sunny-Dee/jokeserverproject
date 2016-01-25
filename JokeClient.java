@@ -126,9 +126,9 @@ public class JokeClient {
 			toServer.println(id);
 			toServer.flush();
 			
-			//Read two or three lines of response from server,
+			//Read two or four lines of response from server,
 			//and block while synchronously waiting
-			for (int i = 1; i <= 3; i++){
+			for (int i = 1; i <= 4; i++){
 				textFromServer = fromServer.readLine();
 				if (textFromServer != null)
 					System.out.println(textFromServer);
